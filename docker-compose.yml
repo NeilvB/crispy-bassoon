@@ -1,0 +1,14 @@
+services:
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=password
+    # DB currently gets cleared each time - need volume mapped from host here
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+    volumes:
+      - .:/usr/src/app

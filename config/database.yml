@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # username: postgres
+  # password: password
+  # host: database
+
+development:
+  <<: *default
+  database: crispy_bassoon_development
+
+test:
+  <<: *default
+  database: crispy_bassoon_test
+
+production:
+  <<: *default
+  database: crispy_bassoon_production
+  username: crispy_bassoon
+  password: <%= ENV["CRISPY_BASSOON_DATABASE_PASSWORD"] %>
