@@ -1,0 +1,5 @@
+one:
+  password_digest: <%= BCrypt::Password.create("secret") %>
+
+two:
+  password_digest: <%= BCrypt::Password.create("secret") %>

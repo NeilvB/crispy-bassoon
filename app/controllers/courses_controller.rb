@@ -1,25 +1,30 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: %i[ show edit update destroy ]
+  before_action :set_user_course_rating, only: [ :show ]
 
-  # GET /courses or /courses.json
   def index
-    @courses = Course.all
+    courses = @current_user.courses
+      .includes(:user_course_ratings)
+      .where({user_course_ratings: { user: @current_user } })
+
+    @courses_with_user_ratings = courses.map do |course|
+      [
+        course,
+        course.user_course_ratings.find_or_initialize_by(user: @current_user)
+      ]
+    end
   end
 
-  # GET /courses/1 or /courses/1.json
   def show
   end
 
-  # GET /courses/new
   def new
     @course = Course.new
   end
 
-  # GET /courses/1/edit
   def edit
   end
 
-  # POST /courses or /courses.json
   def create
     @course = Course.new(course_params)
 
@@ -34,7 +39,6 @@ class CoursesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /courses/1 or /courses/1.json
   def update
     respond_to do |format|
       if @course.update(course_params)
@@ -47,7 +51,6 @@ class CoursesController < ApplicationController
     end
   end
 
-  # DELETE /courses/1 or /courses/1.json
   def destroy
     @course.destroy
 
@@ -58,13 +61,16 @@ class CoursesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_course
       @course = Course.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    def set_user_course_rating
+      @user_course_rating =
+        @course.user_course_ratings.find_or_initialize_by(user: @current_user)
+    end
+
     def course_params
-      params.require(:course).permit(:name, :level)
+      params.require(:course).permit(:name)
     end
 end
