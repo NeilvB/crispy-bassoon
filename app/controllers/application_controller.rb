@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     if user_id = session[:user_id]
       @current_user = User.find(user_id)
     else
-      redirect_to new_login_url
+      redirect_to login_url
     end
   end
 end

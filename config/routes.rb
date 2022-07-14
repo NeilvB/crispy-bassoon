@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'courses#index'
 
-  resources :logins, only: [:new, :create]
+  get '/login', to: 'logins#new'
+  post '/login', to: 'logins#create'
+  delete 'login', to: 'logins#destroy'
 
   resources :courses
 
