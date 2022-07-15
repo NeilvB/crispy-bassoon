@@ -1,11 +1,7 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Courses</h1>
-
-<div id="courses">
-  <% @courses_with_user_ratings.each do |course, user_rating| %>
-    <%= render course, user_rating: user_rating %>
+<ul>
+  <% @courses.each do |course| %>
+    <li>
+      <%= link_to course.name, @course %>
+    </li>
   <% end %>
-</div>
-
-<%= link_to "New course", new_course_path %>
+</ul>

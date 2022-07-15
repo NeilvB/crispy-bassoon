@@ -1,11 +1,8 @@
 Rails.application.routes.draw do
-  root 'courses#index'
+  root 'sessions#new'
 
-  get '/login', to: 'logins#new'
-  post '/login', to: 'logins#create'
-  delete 'login', to: 'logins#destroy'
+  post 'session', to: 'sessions#create'
 
-  resources :courses
-
-  resources :user_course_ratings, only: [:create, :update]
+  get 'courses', to: 'courses#index'
+  get 'courses/:id', to: 'courses#show', as: 'course'
 end
