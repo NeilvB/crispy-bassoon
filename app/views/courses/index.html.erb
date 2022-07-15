@@ -1,7 +1,8 @@
 <ul>
   <% @courses.each do |course| %>
     <li>
-      <%= link_to course.name, @course %>
+      <%= link_to course.name, edit_course_path(course) %>
+      Rating: <%= course.rating || 'Not yet rated' %>
     </li>
   <% end %>
 </ul>

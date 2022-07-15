@@ -17,6 +17,10 @@ RSpec.describe "Courses", type: :system do
     course1 = Course.create!(name: 'Course 1', users: [user1])
     course2 = Course.create!(name: 'Course 2', users: [user2])
     course3 = Course.create!(name: 'Course 3', users: [user1, user2])
+
+    course3.courses_users
+      .find_by!(user: user2)
+      .update!(rating: 5)
   }
 
   it 'allows viewing and rating courses' do
@@ -33,5 +37,12 @@ RSpec.describe "Courses", type: :system do
 
       expect(page).not_to have_content 'Course 2'
     end
+
+    click_link 'Course 3'
+
+    select '4', from: 'My Rating'
+    click_button 'Save Rating'
+    
+    expect(find('li', text: 'Course 3')).to have_content 'Rating: 4.5'
   end
 end

@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   post 'session', to: 'sessions#create'
 
   get 'courses', to: 'courses#index'
-  get 'courses/:id', to: 'courses#show', as: 'course'
+  get 'courses/:id/edit', to: 'courses#edit', as: 'edit_course'
+  
+  patch 'course_user/:id', to: 'courses_users#update', as: 'courses_user'
 end

@@ -21,9 +21,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_15_071411) do
     t.index ["name"], name: "index_courses_on_name", unique: true
   end
 
-  create_table "courses_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "course_id", null: false
+  create_table "courses_users", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "course_id"
+    t.integer "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_courses_users_on_course_id"

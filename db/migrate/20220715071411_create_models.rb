@@ -9,13 +9,15 @@ class CreateModels < ActiveRecord::Migration[7.0]
 
     create_table :courses do |t|
       t.text :name, null: false, index: { unique: true }
-  
+      
       t.timestamps
     end
+    
+    create_table :courses_users do |t|
+      t.references :user
+      t.references :course
 
-    create_join_table :users, :courses do |t|
-      t.index :user_id
-      t.index :course_id
+      t.integer :rating, null: true
 
       t.timestamps
     end
